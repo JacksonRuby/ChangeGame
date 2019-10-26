@@ -1,0 +1,137 @@
+﻿<!--
+* FILE         : MainWindow.xaml
+* PROJECT      : Assignment 4
+* PROGRAMMER   : Group 3: Jackson Ruby, Mounika Kasarla, Artem Nahornyi, Sukhwinder Singh, Dipalee Gupta
+* DATE         : Oct. 1, 2019
+* DESCRIPTION  :
+*      Money game where the user has to choose amounts of coins to equal a given value.
+-->
+
+<Window x:Class="ChangeGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChangeGame"
+        mc:Ignorable="d"
+        Title="Change Game" Height="450" Width="1030"
+        MinHeight="450" MinWidth="1030">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition MinWidth="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Coin images -->
+        <Image Name="imgPenny" Source="img/PennyWithButtons.png" 
+               Grid.Row="0" Grid.Column="0" Margin="3"
+               MouseLeftButtonDown="ImgPenny_MouseLeftButtonDown"/>
+        <Image Name="imgNickel" Source="img/NickelWithButtons.png" 
+               Grid.Row="0" Grid.Column="1" Margin="3"
+               MouseLeftButtonDown="ImgNickel_MouseLeftButtonDown"/>
+        <Image Name="imgDime" Source="img/DimeWithButtons.png"
+               Grid.Row="0" Grid.Column="2" Margin="3"
+               MouseLeftButtonDown="ImgDime_MouseLeftButtonDown"/>
+        <Image Name="ImgQuarter" Source="img/QuarterWithButtons.png"
+               Grid.Row="2" Grid.Column="0" Margin="3"
+               MouseLeftButtonDown="ImgQuarter_MouseLeftButtonDown"/>
+        <Image Name="imgLoonie" Source="img/LoonieWithButtons.png"
+               Grid.Row="2" Grid.Column="1" Margin="3"
+               MouseLeftButtonDown="ImgLoonie_MouseLeftButtonDown"/>
+        <Image Name="imgToonie" Source="img/ToonieWithButtons.png"
+               Grid.Row="2" Grid.Column="2" Margin="3"
+               MouseLeftButtonDown="ImgToonie_MouseLeftButtonDown"/>
+        
+        <!-- Input textboxes -->
+        <Viewbox Grid.Row="1" Grid.Column="0" Margin="10">
+            <TextBox Name="txtPenny" MinWidth="40" TextAlignment="Center"
+                     Foreground="Gray" BorderBrush="Black"
+                     PreviewTextInput="textBoxAllowOnlyNumericInput"
+                     GotFocus="hidePlaceholder" LostFocus="showPlaceholder"
+                     KeyUp="keepTextBoxValue"></TextBox>
+        </Viewbox>
+
+        <Viewbox Grid.Row="1" Grid.Column="1" Margin="10">
+            <TextBox Name="txtNickel" MinWidth="40" TextAlignment="Center" 
+                     Foreground="Gray" BorderBrush="Black"
+                     PreviewTextInput="textBoxAllowOnlyNumericInput"
+                     GotFocus="hidePlaceholder" LostFocus="showPlaceholder"
+                     KeyUp="keepTextBoxValue"></TextBox>
+        </Viewbox>
+
+        <Viewbox Grid.Row="1" Grid.Column="2" Margin="10">
+            <TextBox Name="txtDime" MinWidth="40" TextAlignment="Center" 
+                     Foreground="Gray" BorderBrush="Black"
+                     PreviewTextInput="textBoxAllowOnlyNumericInput"
+                     GotFocus="hidePlaceholder" LostFocus="showPlaceholder"
+                     KeyUp="keepTextBoxValue"></TextBox>
+        </Viewbox>
+
+        <Viewbox Grid.Row="3" Grid.Column="0" Margin="10">
+            <TextBox Name="txtQuarter" MinWidth="40" TextAlignment="Center" 
+                     Foreground="Gray" BorderBrush="Black"
+                     PreviewTextInput="textBoxAllowOnlyNumericInput"
+                     GotFocus="hidePlaceholder" LostFocus="showPlaceholder"
+                     KeyUp="keepTextBoxValue"></TextBox>
+        </Viewbox>
+
+        <Viewbox Grid.Row="3" Grid.Column="1" Margin="10">
+            <TextBox Name="txtLoonie" MinWidth="40" TextAlignment="Center" 
+                     Foreground="Gray" BorderBrush="Black"
+                     PreviewTextInput="textBoxAllowOnlyNumericInput"
+                     GotFocus="hidePlaceholder" LostFocus="showPlaceholder"
+                     KeyUp="keepTextBoxValue"></TextBox>
+        </Viewbox>
+
+        <Viewbox Grid.Row="3" Grid.Column="2" Margin="10">
+            <TextBox Name="txtToonie" MinWidth="40" TextAlignment="Center" 
+                     Foreground="Gray" BorderBrush="Black"
+                     PreviewTextInput="textBoxAllowOnlyNumericInput"
+                     GotFocus="hidePlaceholder" LostFocus="showPlaceholder"
+                     KeyUp="keepTextBoxValue"></TextBox>
+        </Viewbox>
+
+        <!-- Label -->
+        <Viewbox Grid.Row="0" Grid.Column="3" VerticalAlignment="Bottom">
+            <Label Name="lblAnswer" Content="Please get the exact change below"></Label>
+        </Viewbox>
+
+        <!-- Answer textbox -->
+        <Viewbox Grid.Row="1" Grid.Column="3" Margin="10">
+            <TextBox Name="txtAnswer" MinWidth="80" IsReadOnly="True" TextAlignment="Center" BorderBrush="Black"></TextBox>
+        </Viewbox>
+
+        <!-- Buttons -->
+        <Button Name="btnCheckAnswer" Content="Check Answer" FontSize="36" 
+                Grid.Row="2" Grid.Column="3" Margin="10" 
+                Click="BtnCheckAnswer_Click" ></Button>
+        <Button Name="btnResetCoins" Content="Reset Coins" FontSize="20" 
+                Grid.Row="3" Grid.Column="3" Margin="10" 
+                HorizontalAlignment="Left" MinWidth="150"
+                Click="BtnResetCoins_Click"></Button>
+        <Button Name="btnNewGame" Content="New Game" FontSize="20" 
+                Grid.Row="3" Grid.Column="3" Margin="10" 
+                HorizontalAlignment="Right" MinWidth="150"
+                Click="BtnNewGame_Click"></Button>
+
+        <!-- Message cavas, label and button -->
+        <Canvas Name="cvsMessage" Grid.RowSpan="4" Grid.ColumnSpan="4" 
+                Background="White" Visibility="Hidden"></Canvas>
+        <Label Name="lblMessage" FontSize="40"
+               Grid.RowSpan="3" Grid.ColumnSpan="4"
+               Content="" HorizontalAlignment="Center" 
+               VerticalAlignment="Center" Visibility="Hidden"></Label>
+        <Button Name="btnOKMessage" Content="OK" FontSize="40"
+                Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" 
+                HorizontalAlignment="Center" Width="200" Height="100"
+                Click="BtnOKMessage_Click" Visibility="Hidden"></Button>
+    </Grid>
+</Window>
